@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Arcade Game</title>
+
+<link rel="stylesheet" href="css/juego.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- PARTICULAS -->
+<canvas id="particles"></canvas>
+
+<!-- 🔥 PANTALLA NOMBRE -->
+<div id="nameScreen" class="screen">
+
+    <h1>🎮 PLAYER ID</h1>
+
+    <input
+    id="nameInput"
+    type="text"
+    placeholder="INSERT YOUR NAME"
+    maxlength="12">
+
+    <button id="enterBtn">
+        START GAME
+    </button>
+
+    <!-- 🔥 TOP GLOBAL -->
+    <div class="top-global">
+
+        <h2>🏆 GLOBAL TOP 3</h2>
+
+        <ul id="globalRank"></ul>
+
+    </div>
+
+</div>
+
+<!-- START -->
+<div id="start" class="screen hidden">
+
+    <h1>🕹 INSERT COIN</h1>
+
+    <button id="startBtn">
+        START
+    </button>
+
+</div>
+
+<!-- GAME -->
+<div id="game" class="game hidden">
+
+    <!-- HUD -->
+    <div class="hud">
+
+        <p>
+            PUNTOS:
+            <span id="score">0</span>
+        </p>
+
+        <p>
+            NIVEL:
+            <span id="level">1</span>
+        </p>
+
+        <p>
+            TIEMPO:
+            <span id="time">30</span>
+        </p>
+
+    </div>
+
+    <!-- BOX -->
+    <div id="box"></div>
+
+    <!-- SKINS -->
+    <div class="skins">
+
+        <button onclick="setSkin('cyan')">
+            CYAN
+        </button>
+
+        <button onclick="setSkin('red')">
+            RED
+        </button>
+
+        <button onclick="setSkin('green')">
+            GREEN
+        </button>
+
+    </div>
+
+</div>
+
+<!-- GAME OVER -->
+<div id="over" class="screen hidden">
+
+    <h1>GAME OVER</h1>
+
+    <p id="final"></p>
+
+    <h3>🏆 TOP 3</h3>
+
+    <ul id="rank"></ul>
+
+    <div class="buttons">
+
+        <button onclick="location.reload()">
+            RESTART
+        </button>
+
+        <button onclick="exitGame()">
+            SALIR
+        </button>
+
+    </div>
+
+</div>
+
+<!-- 🔊 SONIDO CLICK -->
+<audio id="beep" preload="auto">
+
+    <source
+    src="https://actions.google.com/sounds/v1/cartoon/pop.ogg"
+    type="audio/ogg">
+
+</audio>
+
+<!-- 🎵 MUSICA FONDO -->
+<audio id="bgMusic" autoplay loop>
+
+    <source
+    src="https://cdn.pixabay.com/audio/2022/03/15/audio_c8c8a73467.mp3"
+    type="audio/mpeg">
+
+</audio>
+
+<!-- JS -->
+<script src="js/juego.js"></script>
+
+</body>
+</html>

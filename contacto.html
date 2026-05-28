@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Rafa Guzmán</title>
+
+    <link rel="stylesheet" href="css/contacto.css">
+
+    <!-- ICONOS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<header>
+
+    <nav>
+
+        <h1 class="logo">Rafa Guzmán</h1>
+
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="hacerca_de.html">Sobre mí</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="galeria.html">Galería</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="juego.html">Juego</a></li>
+        </ul>
+
+    </nav>
+
+</header>
+
+<!-- CONTACTO -->
+<section class="contact">
+
+    <h2>Contacto</h2>
+
+    <div class="contact-container">
+
+        <!-- FORMULARIO -->
+        <form id="formulario" action="enviar.php" method="POST">
+
+            <input type="text" name="nombre" placeholder="Nombre" required>
+
+            <input type="email" name="correo" placeholder="Correo" required>
+
+            <textarea name="mensaje" placeholder="Escribe tu mensaje..." required></textarea>
+
+            <button type="submit">Enviar</button>
+
+        </form>
+
+        <!-- REDES SOCIALES -->
+        <div class="social">
+
+            <h3>Sígueme en redes</h3>
+
+            <a href="https://wa.me/527361115971?text=Hola%20vi%20tu%20portafolio%20y%20me%20interesa%20contactarte." target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </a>
+
+            <a href="https://www.facebook.com/share/1BdmyHXTZX/" target="_blank">
+                <i class="fa-brands fa-facebook"></i> Facebook
+            </a>
+
+            <a href="https://www.instagram.com/rafa_guzman8?igsh=MWt1MnFtc2cxYWg0eQ==" target="_blank">
+                <i class="fa-brands fa-instagram"></i> Instagram
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- MENSAJE ÉXITO -->
+<div class="mensaje-exito" id="mensajeExito">
+    <i class="fa-solid fa-circle-check"></i>
+    <p>Mensaje enviado con éxito</p>
+</div>
+
+<!-- JS VALIDACIÓN + UX -->
+<script>
+const form = document.getElementById("formulario");
+const mensaje = document.getElementById("mensajeExito");
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const nombre = form.nombre.value.trim();
+    const correo = form.correo.value.trim();
+    const mensajeTxt = form.mensaje.value.trim();
+
+    if(nombre === "" || correo === "" || mensajeTxt === ""){
+        alert("Completa todos los campos");
+        return;
+    }
+
+    if(!correo.includes("@")){
+        alert("Correo inválido");
+        return;
+    }
+
+    // ANIMACIÓN DE ÉXITO
+    mensaje.classList.add("show");
+
+    setTimeout(() => {
+        mensaje.classList.remove("show");
+        form.reset();
+    }, 3000);
+
+});
+</script>
+
+</body>
+</html>
