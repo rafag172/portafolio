@@ -7,47 +7,20 @@ let timeLeft = 30;
    ELEMENTOS
 ========================= */
 
-const nameScreen =
-document.getElementById("nameScreen");
-
-const nameInput =
-document.getElementById("nameInput");
-
-const enterBtn =
-document.getElementById("enterBtn");
-
-const start =
-document.getElementById("start");
-
-const game =
-document.getElementById("game");
-
-const over =
-document.getElementById("over");
-
-const box =
-document.getElementById("box");
-
-const scoreText =
-document.getElementById("score");
-
-const levelText =
-document.getElementById("level");
-
-const timeText =
-document.getElementById("time");
-
-const beep =
-document.getElementById("beep");
-
-const bgMusic =
-document.getElementById("bgMusic");
-
-const startBtn =
-document.getElementById("startBtn");
-
-const globalRank =
-document.getElementById("globalRank");
+const nameScreen = document.getElementById("nameScreen");
+const nameInput = document.getElementById("nameInput");
+const enterBtn = document.getElementById("enterBtn");
+const start = document.getElementById("start");
+const game = document.getElementById("game");
+const over = document.getElementById("over");
+const box = document.getElementById("box");
+const scoreText = document.getElementById("score");
+const levelText = document.getElementById("level");
+const timeText = document.getElementById("time");
+const beep = document.getElementById("beep");
+const bgMusic = document.getElementById("bgMusic");
+const startBtn = document.getElementById("startBtn");
+const globalRank = document.getElementById("globalRank");
 
 /* =========================
    VARIABLES
@@ -55,7 +28,6 @@ document.getElementById("globalRank");
 
 let timer;
 let mover;
-
 let playerName = "Player";
 
 /* =========================
@@ -63,63 +35,36 @@ let playerName = "Player";
 ========================= */
 
 enterBtn.addEventListener("click", () => {
-
-
     bgMusic.volume = 0.3;
-
     bgMusic.play()
-    .then(()=>{
-
+    .then(() => {
         console.log("🎵 Música ON");
-
     })
-    .catch(()=>{
-
+    .catch(() => {
         console.log("Chrome bloqueó autoplay");
-
     });
 
-
-
     if(nameInput.value.trim() !== ""){
-
-        playerName =
-        nameInput.value.trim();
-
+        playerName = nameInput.value.trim();
     }
 
     nameScreen.classList.add("hidden");
-
     start.classList.remove("hidden");
-
 });
 
-
-nameInput.addEventListener("keydown", (e)=>{
-
+nameInput.addEventListener("keydown", (e) => {
     if(e.key === "Enter"){
-
         enterBtn.click();
-
     }
-
 });
-
 
 function unlockAudio(){
-
     beep.play()
-
-    .then(()=>{
-
+    .then(() => {
         beep.pause();
-
         beep.currentTime = 0;
-
     })
-
-    .catch(()=>{});
-
+    .catch(() => {});
 }
 
 /* =========================
@@ -127,37 +72,25 @@ function unlockAudio(){
 ========================= */
 
 startBtn.addEventListener("click", () => {
-
     unlockAudio();
-
     start.classList.add("hidden");
-
     game.classList.remove("hidden");
-
     startGame();
-
 });
 
 function startGame(){
-
     score = 0;
     level = 1;
     speed = 1000;
     timeLeft = 30;
 
     scoreText.textContent = score;
-
     levelText.textContent = level;
-
     timeText.textContent = timeLeft;
 
     moveBox();
-
     clearInterval(timer);
-
-    timer =
-    setInterval(updateTime, 1000);
-
+    timer = setInterval(updateTime, 1000);
 }
 
 /* =========================
@@ -165,40 +98,29 @@ function startGame(){
 ========================= */
 
 function updateTime(){
-
     timeLeft--;
-
     timeText.textContent = timeLeft;
 
     if(timeLeft <= 0){
-
         endGame();
-
     }
-
 }
 
+/* =========================
+   MOVE BOX
+========================= */
+
 function moveBox(){
+    const gameWidth = window.innerWidth - 100;
+    const gameHeight = window.innerHeight - 220;
 
-    const gameWidth =
-    window.innerWidth - 100;
-
-    const gameHeight =
-    window.innerHeight - 220;
-
-    const x =
-    Math.random() * gameWidth;
-
-    const y =
-    Math.random() * gameHeight;
+    const x = Math.random() * gameWidth;
+    const y = Math.random() * gameHeight;
 
     box.style.left = x + "px";
-
     box.style.top = y + "px";
 
-    mover =
-    setTimeout(moveBox, speed);
-
+    mover = setTimeout(moveBox, speed);
 }
 
 /* =========================
@@ -206,41 +128,24 @@ function moveBox(){
 ========================= */
 
 box.onclick = () => {
-
     score++;
-
     scoreText.textContent = score;
 
-
     beep.currentTime = 0;
-
-    beep.play().catch(()=>{});
-
+    beep.play().catch(() => {});
 
     document.body.classList.add("shake");
-
-    setTimeout(()=>{
-
+    setTimeout(() => {
         document.body.classList.remove("shake");
-
-    },150);
-
-    /* LEVEL */
+    }, 150);
 
     if(score % 5 === 0){
-
         level++;
-
         levelText.textContent = level;
-
         if(speed > 250){
-
             speed -= 80;
-
         }
-
     }
-
 };
 
 /* =========================
@@ -248,27 +153,22 @@ box.onclick = () => {
 ========================= */
 
 function endGame(){
-
     clearInterval(timer);
-
     clearTimeout(mover);
 
     game.classList.add("hidden");
-
     over.classList.remove("hidden");
 
-    document.getElementById("final").innerText =
-    `${playerName} - ${score} puntos`;
-
+    document.getElementById("final").innerText = `${playerName} - ${score} puntos`;
     console.log("🔥 Guardando score...");
-
 
     const datosASalvar = {
         nombre: playerName,
         puntos: score
     };
 
-    fetch("http://pruebasguzman.infinityfreeapp.com/api_save_score.php", {
+    // Usamos HTTPS para evitar bloqueos directos en GitHub Pages
+    fetch("https://pruebasguzman.infinityfreeapp.com/api_save_score.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -277,18 +177,12 @@ function endGame(){
     })
     .then(response => response.json())
     .then(data => {
-
-        console.log("RESPUESTA:", data);
-
-        loadRanking();
-
+        console.log("RESPUESTA GUARDADO:", data);
+        loadRanking(); 
     })
     .catch(error => {
-
-        console.log("ERROR:", error);
-
+        console.log("ERROR AL GUARDAR:", error);
     });
-
 }
 
 /* =========================
@@ -296,134 +190,87 @@ function endGame(){
 ========================= */
 
 function loadRanking(){
-
-    fetch("http://pruebasguzman.infinityfreeapp.com/get_scores.php")
-    .then(response => response.text()) 
+    // Apuntamos al archivo real que confirmamos que funciona: get_scores.php
+    fetch("https://pruebasguzman.infinityfreeapp.com/get_scores.php")
+    .then(response => response.json()) 
     .then(data => {
+        console.log("Datos recibidos del servidor:", data);
         
-        console.log("LO QUE LLEGA DE INFINITYFREE REALMENTE ES:", data); 
+        let html = "";
+        data.forEach((r, index) => {
+            html += `
+            <li>
+                🏆 ${index + 1}. ${r.nombre} - ${r.puntos} pts
+            </li>
+            `;
+        });
+
+        /* Imprimir en la pantalla de Game Over y de Inicio */
+        document.getElementById("rank").innerHTML = html;
+        globalRank.innerHTML = html;
     })
     .catch(error => {
-        console.log("ERROR RANK:", error);
+        console.log("ERROR AL CARGAR RANKING:", error);
     });
-
 }
 
-        /* GAME OVER */
-
-        document.getElementById("rank").innerHTML =
-        html;
-
-        globalRank.innerHTML =
-        html;
-
-    })
-
-    .catch(error => {
-
-        console.log("ERROR RANK:", error);
-
-    });
-
-}
-
+/* =========================
+   EXIT
+========================= */
 
 function exitGame(){
-
-    window.location.href =
-    "index.html";
-
+    window.location.href = "index.html";
 }
 
+/* =========================
+   PARTICULAS
+========================= */
 
-const canvas =
-document.getElementById("particles");
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
 
-const ctx =
-canvas.getContext("2d");
-
-canvas.width =
-window.innerWidth;
-
-canvas.height =
-window.innerHeight;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 let particles = [];
 
 for(let i = 0; i < 80; i++){
-
     particles.push({
-
-        x:
-        Math.random() * canvas.width,
-
-        y:
-        Math.random() * canvas.height,
-
-        size:
-        Math.random() * 3,
-
-        speed:
-        Math.random() * 2 + 1
-
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 3,
+        speed: Math.random() * 2 + 1
     });
-
 }
 
 function drawParticles(){
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#00fff2";
 
-    particles.forEach(p=>{
-
+    particles.forEach(p => {
         ctx.beginPath();
-
-        ctx.arc(
-            p.x,
-            p.y,
-            p.size,
-            0,
-            Math.PI * 2
-        );
-
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
 
         p.y += p.speed;
 
         if(p.y > canvas.height){
-
             p.y = 0;
-
-            p.x =
-            Math.random() * canvas.width;
-
+            p.x = Math.random() * canvas.width;
         }
-
     });
 
     requestAnimationFrame(drawParticles);
-
 }
 
 drawParticles();
 
-
-window.addEventListener("resize", ()=>{
-
-    canvas.width =
-    window.innerWidth;
-
-    canvas.height =
-    window.innerHeight;
-
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 });
 
-
+/* =========================
+   CARGAR TOP AL ENTRAR
+========================= */
 loadRanking();
