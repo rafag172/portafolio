@@ -280,7 +280,7 @@ function endGame(){
         puntos: score
     };
 
-    fetch("https://pruebasguzman.infinityfreeapp.com/api_save_score.php", {
+    fetch("http://pruebasguzman.infinityfreeapp.com/api_save_score.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -309,7 +309,7 @@ function endGame(){
 
 function loadRanking(){
 
-    fetch("https://pruebasguzman.infinityfreeapp.com/obtener_puntuaciones.php")
+    fetch("http://pruebasguzman.infinityfreeapp.com/obtener_puntuaciones.php")
     .then(response => response.text()) // 👈 Cambiamos json() por text() temporalmente
     .then(data => {
         
