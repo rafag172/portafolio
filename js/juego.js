@@ -297,7 +297,7 @@ function endGame(){
 
 function loadRanking(){
 
-    fetch("http://pruebasguzman.infinityfreeapp.com/obtener_puntuaciones.php")
+    fetch("http://pruebasguzman.infinityfreeapp.com/get_scores.php")
     .then(response => response.text()) 
     .then(data => {
         
