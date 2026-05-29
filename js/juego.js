@@ -309,28 +309,24 @@ function endGame(){
 
 function loadRanking(){
 
-    /* 🏆 CARGAR TOP DESDE TU DOMINIO EN INIFINITYFREE */
-
     fetch("https://pruebasguzman.infinityfreeapp.com/obtener_puntuaciones.php")
-
-    .then(response => response.json())
-
+    .then(response => response.text()) // 👈 Cambiamos json() por text() temporalmente
     .then(data => {
+        
+        // 👈 Esto nos va a mostrar en la consola la verdad de lo que llega
+        console.log("LO QUE LLEGA DE INFINITYFREE REALMENTE ES:", data); 
 
+        // El resto del código lo dejamos igual por ahora...
+        /*
         let html = "";
+        data.forEach((r,index)=>{ ... });
+        */
+    })
+    .catch(error => {
+        console.log("ERROR RANK:", error);
+    });
 
-        data.forEach((r,index)=>{
-
-            html += `
-            <li>
-                🏆 ${index + 1}.
-                ${r.nombre}
-                -
-                ${r.puntos} pts
-            </li>
-            `;
-
-        });
+}
 
         /* GAME OVER */
 
