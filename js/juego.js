@@ -273,15 +273,14 @@ function endGame(){
 
     console.log("🔥 Guardando score...");
 
-    /* 🔥 GUARDAR SCORE - CONEXIÓN CON TU BACKEND PHP (INFINITYFREE) */
+    /* 🔥 GUARDAR SCORE - CONECTADO CON TU BACKEND EN INIFINITYFREE */
 
     const datosASalvar = {
         nombre: playerName,
         puntos: score
     };
 
-    // ⚠️ REEMPLAZA EL DOMINIO DE ABAJO POR TU ENLACE REAL DE INFINITYFREE
-    fetch("https://rafaprogra.infinityfreeapp.com/api_save_score.php", {
+    fetch("https://pruebasguzman.infinityfreeapp.com/api_save_score.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -310,8 +309,9 @@ function endGame(){
 
 function loadRanking(){
 
-    // ⚠️ REEMPLAZA EL DOMINIO DE ABAJO POR TU ENLACE REAL DE INFINITYFREE
-    fetch("https://rafaprogra.infinityfreeapp.com/obtener_puntuaciones.php")
+    /* 🏆 CARGAR TOP DESDE TU DOMINIO EN INIFINITYFREE */
+
+    fetch("https://pruebasguzman.infinityfreeapp.com/obtener_puntuaciones.php")
 
     .then(response => response.json())
 
