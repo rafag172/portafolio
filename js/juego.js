@@ -64,7 +64,6 @@ let playerName = "Player";
 
 enterBtn.addEventListener("click", () => {
 
-    /* 🔥 MUSICA */
 
     bgMusic.volume = 0.3;
 
@@ -80,7 +79,7 @@ enterBtn.addEventListener("click", () => {
 
     });
 
-    /* NOMBRE */
+
 
     if(nameInput.value.trim() !== ""){
 
@@ -95,7 +94,6 @@ enterBtn.addEventListener("click", () => {
 
 });
 
-/* ENTER */
 
 nameInput.addEventListener("keydown", (e)=>{
 
@@ -107,9 +105,6 @@ nameInput.addEventListener("keydown", (e)=>{
 
 });
 
-/* =========================
-   AUDIO FIX
-========================= */
 
 function unlockAudio(){
 
@@ -183,10 +178,6 @@ function updateTime(){
 
 }
 
-/* =========================
-   MOVE BOX
-========================= */
-
 function moveBox(){
 
     const gameWidth =
@@ -220,13 +211,11 @@ box.onclick = () => {
 
     scoreText.textContent = score;
 
-    /* 🔊 SONIDO */
 
     beep.currentTime = 0;
 
     beep.play().catch(()=>{});
 
-    /* SHAKE */
 
     document.body.classList.add("shake");
 
@@ -273,7 +262,6 @@ function endGame(){
 
     console.log("🔥 Guardando score...");
 
-    /* 🔥 GUARDAR SCORE - CONECTADO CON TU BACKEND EN INIFINITYFREE */
 
     const datosASalvar = {
         nombre: playerName,
@@ -310,17 +298,10 @@ function endGame(){
 function loadRanking(){
 
     fetch("http://pruebasguzman.infinityfreeapp.com/obtener_puntuaciones.php")
-    .then(response => response.text()) // 👈 Cambiamos json() por text() temporalmente
+    .then(response => response.text()) 
     .then(data => {
         
-        // 👈 Esto nos va a mostrar en la consola la verdad de lo que llega
         console.log("LO QUE LLEGA DE INFINITYFREE REALMENTE ES:", data); 
-
-        // El resto del código lo dejamos igual por ahora...
-        /*
-        let html = "";
-        data.forEach((r,index)=>{ ... });
-        */
     })
     .catch(error => {
         console.log("ERROR RANK:", error);
@@ -332,8 +313,6 @@ function loadRanking(){
 
         document.getElementById("rank").innerHTML =
         html;
-
-        /* PANTALLA INICIO */
 
         globalRank.innerHTML =
         html;
@@ -348,9 +327,6 @@ function loadRanking(){
 
 }
 
-/* =========================
-   EXIT
-========================= */
 
 function exitGame(){
 
@@ -359,9 +335,6 @@ function exitGame(){
 
 }
 
-/* =========================
-   PARTICULAS
-========================= */
 
 const canvas =
 document.getElementById("particles");
@@ -441,9 +414,6 @@ function drawParticles(){
 
 drawParticles();
 
-/* =========================
-   RESPONSIVE
-========================= */
 
 window.addEventListener("resize", ()=>{
 
@@ -455,8 +425,5 @@ window.addEventListener("resize", ()=>{
 
 });
 
-/* =========================
-   CARGAR TOP AL ENTRAR
-========================= */
 
 loadRanking();
