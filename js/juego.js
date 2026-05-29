@@ -271,18 +271,25 @@ function endGame(){
     document.getElementById("final").innerText =
     `${playerName} - ${score} puntos`;
 
-    console.log("🔥 Guardando score...");
+    console.log("🔥 Guardando score en InfinityFree...");
 
-    /* 🔥 GUARDAR SCORE */
+    /* ===================================================
+       🔥 CONEXIÓN CON TU BACKEND PHP (INFINITYFREE)
+    =================================================== */
+    const datosASalvar = {
+        nombre: playerName,
+        puntos: score
+    };
 
-    fetch(
-
-        `save_score.php?nombre=${encodeURIComponent(playerName)}&puntos=${score}`
-
-    )
-
-    .then(response => response.text())
-
+    // ⚠️ REEMPLAZA ESTA URL POR TU LINK REAL DE INFINITYFREE
+    fetch("https://rafaprogra.infinityfreeapp.com/api_save_score.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datosASalvar)
+    })
+    .then(response => response.json())
     .then(data => {
 
         console.log("RESPUESTA:", data);
@@ -290,7 +297,6 @@ function endGame(){
         loadRanking();
 
     })
-
     .catch(error => {
 
         console.log("ERROR:", error);
@@ -305,7 +311,8 @@ function endGame(){
 
 function loadRanking(){
 
-    fetch("get_scores.php")
+    // ⚠️ REEMPLAZA ESTA URL POR TU LINK REAL DE INFINITYFREE
+    fetch("https://rafaprogra.infinityfreeapp.com/obtener_puntuaciones.php")
 
     .then(response => response.json())
 
