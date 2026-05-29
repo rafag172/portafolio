@@ -6,7 +6,6 @@ let timeLeft = 30;
 /* =========================
    ELEMENTOS
 ========================= */
-
 const nameScreen = document.getElementById("nameScreen");
 const nameInput = document.getElementById("nameInput");
 const enterBtn = document.getElementById("enterBtn");
@@ -25,7 +24,6 @@ const globalRank = document.getElementById("globalRank");
 /* =========================
    VARIABLES
 ========================= */
-
 let timer;
 let mover;
 let playerName = "Player";
@@ -33,7 +31,6 @@ let playerName = "Player";
 /* =========================
    INGRESAR NOMBRE
 ========================= */
-
 enterBtn.addEventListener("click", () => {
     bgMusic.volume = 0.3;
     bgMusic.play()
@@ -70,7 +67,6 @@ function unlockAudio(){
 /* =========================
    START GAME
 ========================= */
-
 startBtn.addEventListener("click", () => {
     unlockAudio();
     start.classList.add("hidden");
@@ -96,7 +92,6 @@ function startGame(){
 /* =========================
    TIMER
 ========================= */
-
 function updateTime(){
     timeLeft--;
     timeText.textContent = timeLeft;
@@ -109,7 +104,6 @@ function updateTime(){
 /* =========================
    MOVE BOX
 ========================= */
-
 function moveBox(){
     const gameWidth = window.innerWidth - 100;
     const gameHeight = window.innerHeight - 220;
@@ -126,7 +120,6 @@ function moveBox(){
 /* =========================
    CLICK BOX
 ========================= */
-
 box.onclick = () => {
     score++;
     scoreText.textContent = score;
@@ -151,7 +144,6 @@ box.onclick = () => {
 /* =========================
    GAME OVER
 ========================= */
-
 function endGame(){
     clearInterval(timer);
     clearTimeout(mover);
@@ -167,7 +159,6 @@ function endGame(){
         puntos: score
     };
 
-    // Usamos HTTPS para evitar bloqueos directos en GitHub Pages
     fetch("https://pruebasguzman.infinityfreeapp.com/api_save_score.php", {
         method: "POST",
         headers: {
@@ -188,9 +179,7 @@ function endGame(){
 /* =========================
    TOP 3 GLOBAL
 ========================= */
-
 function loadRanking(){
-    // Apuntamos al archivo real que confirmamos que funciona: get_scores.php
     fetch("https://pruebasguzman.infinityfreeapp.com/get_scores.php")
     .then(response => response.json()) 
     .then(data => {
@@ -205,7 +194,6 @@ function loadRanking(){
             `;
         });
 
-        /* Imprimir en la pantalla de Game Over y de Inicio */
         document.getElementById("rank").innerHTML = html;
         globalRank.innerHTML = html;
     })
@@ -217,7 +205,6 @@ function loadRanking(){
 /* =========================
    EXIT
 ========================= */
-
 function exitGame(){
     window.location.href = "index.html";
 }
@@ -225,7 +212,6 @@ function exitGame(){
 /* =========================
    PARTICULAS
 ========================= */
-
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -271,6 +257,6 @@ window.addEventListener("resize", () => {
 });
 
 /* =========================
-   CARGAR TOP AL ENTRAR
+   EJECUCIÓN INICIAL
 ========================= */
 loadRanking();
