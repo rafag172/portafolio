@@ -142,7 +142,7 @@ box.onclick = () => {
 };
 
 /* =========================
-   GAME OVER
+   GAME OVER (GUARDAR RECORDS)
 ========================= */
 function endGame(){
     clearInterval(timer);
@@ -152,14 +152,15 @@ function endGame(){
     over.classList.remove("hidden");
 
     document.getElementById("final").innerText = `${playerName} - ${score} puntos`;
-    console.log("🔥 Guardando score...");
+    console.log("🔥 Guardando score usando Proxy...");
 
     const datosASalvar = {
         nombre: playerName,
         puntos: score
     };
 
-    fetch("https://pruebasguzman.infinityfreeapp.com/api_save_score.php", {
+    // 🚀 Cambiado con el Proxy para saltar el bloqueo de InfinityFree
+    fetch("https://cors-anywhere.herokuapp.com/https://pruebasguzman.infinityfreeapp.com/api_save_score.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -177,13 +178,16 @@ function endGame(){
 }
 
 /* =========================
-   TOP 3 GLOBAL
+   TOP 3 GLOBAL (CARGAR RANKING)
 ========================= */
 function loadRanking(){
-    fetch("https://pruebasguzman.infinityfreeapp.com/get_scores.php")
+    console.log("🔄 Cargando ranking desde el servidor...");
+
+    // 🚀 Cambiado con el Proxy apuntando a tu archivo real get_scores.php
+    fetch("https://cors-anywhere.herokuapp.com/https://pruebasguzman.infinityfreeapp.com/get_scores.php")
     .then(response => response.json()) 
     .then(data => {
-        console.log("Datos recibidos del servidor:", data);
+        console.log("Datos recibidos correctamente:", data);
         
         let html = "";
         data.forEach((r, index) => {
@@ -210,7 +214,7 @@ function exitGame(){
 }
 
 /* =========================
-   PARTICULAS
+   PARTICULAS DE FONDO
 ========================= */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
